@@ -14,6 +14,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.support.v4.app.ActivityCompat;
 import android.content.pm.PackageManager;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -23,26 +24,64 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         verifyStoragePermissions(this);
-
-
     }
 
     public void Btntest_Click(View v) {
         Toast.makeText(this, "Hello World", Toast.LENGTH_SHORT).show();
         System.out.println("Click");
     }
-
-    public void BtnFile_Click(View v){
-        Toast.makeText(this, "BtnFile_Click", Toast.LENGTH_SHORT).show();
-        String s=ReadAllText("test.txt");
-        System.out.println(s);
-
+    /**
+     * 递归删除文件和文件夹
+     * @param file
+     *要删除的根目录
+     */
+    public static void RecursionDeleteFile(File file) {
+        if (file.isFile()) {
+            file.delete();
+            return;
+        }
+        if (file.isDirectory()) {
+            File[] childFile = file.listFiles();
+            if (childFile == null || childFile.length == 0) {
+                file.delete();
+                return;
+            }
+            for (File f : childFile) {
+                RecursionDeleteFile(f);
+            }
+            file.delete();
+        }
     }
 
-    public String ReadAllText(String path){
+    public void BtnFile_Click(View v) {
+        Toast.makeText(this, "BtnFile_Click", Toast.LENGTH_SHORT).show();
+        //String s = ReadAllText("test.txt");
+        //System.out.println(s);
+        File file = Environment.getExternalStorageDirectory();
+        for(File f:file.listFiles()){
+            System.out.print(f.getName());
+
+            for(String s:BadStrings){
+                if(f.getName().equals(s)){
+                    boolean b=false;
+                    if(f.isFile()){
+                         b=  f.delete();
+                    }else{
+                        RecursionDeleteFile(f);
+                    }
+                    if(b){
+                        System.out.println("OK");
+                    }else{
+                        System.out.println("Bad");
+                    }
+                }
+            }
+        }
+    }
+
+    public String ReadAllText(String path) {
         try {
-            File file = new File(Environment.getExternalStorageDirectory(),
-                    path);
+            File file = new File(Environment.getExternalStorageDirectory(), path);
             FileInputStream is = new FileInputStream(file);
             byte[] b = new byte[is.available()];
             is.read(b);
@@ -54,17 +93,123 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    private static String[] BadStrings={
+            "weishi_yt_model"
+            ,".tbs"
+            ,"QQBrowser"
+            ,"tv.danmaku.bili"
+            ,"Documents"
+            ,"Mob"
+            ,"speechsdk"
+            ,"hwrec"
+            ,"wismcp"
+            ,"mipush"
+            ,"amap"
+            ,".UTSystemConfig"
+            ,".DataStorage"
+            ,".mtacc"
+            ,"MIUI"
+            ,"alipay"
+            ,".chartboost"
+            ,"QQXposed"
+            ,"360"
+            ,".idm"
+            ,".transportext"
+            ,".com.taobao.dp"
+            ,"libs"
+            ,"system"
+            ,".dlprovider"
+            ,"baidu"
+            ,"douban"
+            ,".WL"
+            ,"Quark"
+            ,".jds"
+            ,"sysdata"
+            ,"data"
+            ,"com.miui.voiceassist"
+            ,".SystemConfig"
+            ,".im"
+            ,"PimMsgCache"
+            ,"MIWiFi"
+            ,"WoodenLetter"
+            ,"DuoKan"
+            ,".BD_SAPI_CACHE"
+            ,".zp"
+            ,"backup"
+            ,"com.netease.cloudmusic"
+            ,"TWRP"
+            ,".Rcs"
+            ,"JuphoonService"
+            ,"miad"
+            ,"ramdump"
+            ,".qmt"
+            ,"WechatChatroomHelper"
+            ,"MiMarket"
+            ,"com.tencent.tim"
+            ,"tbs"
+            ,"msc"
+            ,"com.sf.activity"
+            ,"com.tencent.gamehelper.pg"
+            ,"WechatXposed"
+            ,"browser"
+            ,"备份"
+            ,".g_m_o_bs"
+            ,".g_b_d_v"
+            ,"MifareClassicTool"
+            ,"userexperience"
+            ,".irsmonitorsdk"
+            ,"QTAudioEngine"
+            ,"sjly"
+            ,".sys.log"
+            ,".um"
+            ,".uxx"
+            ,".cc"
+            ,".a.dat"
+            ,".vivo"
+            ,"UMETrip"
+            ,".tcookieid"
+            ,"mishop"
+            ,"tmp"
+            ,".com.android.providers.downloads.ui"
+            ,"dctp"
+            ,"did"
+            ,".uct"
+            ,"FSaCdeR2e"
+            ,"com.xfun"
+            ,"local"
+            ,"youku"
+            ,"AndroLua"
+            ,"flywheel"
+            ,"com"
+            ,"com.tencent.mobileqq"
+            ,".td-3"
+            ,"SmartHome"
+            ,".l_x_b_d"
+            ,"Mopon_ZYGJ_Cache"
+            ,"ctrip.android.view"
+            ,"qqmusic"
+            ,"Catfish"
+            ,"tmsdual_shark_mq.bat"
+            ,"Subtitles"
+            ,"hawaii"
+            ,"hawaii_log"
+            ,"hawii"
+            ,"qt"
+            ,"bill.txt"
+            ,"tencentmapsdk"
+    };
 
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE };
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
     /**
      * Checks if the app has permission to write to device storage
      * If the app does not has permission then the user will be prompted to
      * grant permissions
+     *
      * @param activity
      */
     public static void verifyStoragePermissions(Activity activity) {
