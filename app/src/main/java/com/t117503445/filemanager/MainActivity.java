@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void Btntest_Click(View v) {
         Toast.makeText(this, "Hello World", Toast.LENGTH_SHORT).show();
-        System.out.println("Click");
+        
     }
     /**
      * 递归删除文件和文件夹
@@ -53,26 +53,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void BtnFile_Click(View v) {
-        Toast.makeText(this, "BtnFile_Click", Toast.LENGTH_SHORT).show();
-        //String s = ReadAllText("test.txt");
-        //System.out.println(s);
+    public void BtnClean_Click(View v) {
         File file = Environment.getExternalStorageDirectory();
         for(File f:file.listFiles()){
-            System.out.print(f.getName());
-
             for(String s:BadStrings){
                 if(f.getName().equals(s)){
-                    boolean b=false;
                     if(f.isFile()){
-                         b=  f.delete();
+                         f.delete();
                     }else{
                         RecursionDeleteFile(f);
-                    }
-                    if(b){
-                        System.out.println("OK");
-                    }else{
-                        System.out.println("Bad");
                     }
                 }
             }
@@ -93,6 +82,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+    /**
+     * Checks if the app has permission to write to device storage
+     * If the app does not has permission then the user will be prompted to
+     * grant permissions
+     *
+     * @param activity
+     */
+    public static void verifyStoragePermissions(Activity activity) {
+// Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+// We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE);
+        }
+    }
     private static String[] BadStrings={
             "weishi_yt_model"
             ,".tbs"
@@ -198,31 +213,5 @@ public class MainActivity extends AppCompatActivity {
             ,"bill.txt"
             ,"tencentmapsdk"
     };
-
-    // Storage Permissions
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
-    /**
-     * Checks if the app has permission to write to device storage
-     * If the app does not has permission then the user will be prompted to
-     * grant permissions
-     *
-     * @param activity
-     */
-    public static void verifyStoragePermissions(Activity activity) {
-// Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-// We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE);
-        }
-    }
-
 
 }
