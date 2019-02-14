@@ -2,11 +2,10 @@ package com.t117503445.filemanager;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import android.os.Environment;
@@ -22,13 +21,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         verifyStoragePermissions(this);
     }
 
     public void Btntest_Click(View v) {
         Toast.makeText(this, "Hello World", Toast.LENGTH_SHORT).show();
-        
+        String time=new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
+        File backup=new File(Environment.getExternalStorageDirectory(),"backup-"+time);
+        if(!backup.exists()){
+            backup.mkdir();
+        }
+        for(String s : backupStrings ){
+            File source=new File(s);
+            //source.
+            System.out.println(source.getName());
+            File dest=new File(backup,source.getName());
+            System.out.
+        }
     }
     /**
      * 递归删除文件和文件夹
@@ -54,12 +63,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void BtnClean_Click(View v) {
+        Toast.makeText(this, "BtnClean_Click", Toast.LENGTH_SHORT).show();
         File file = Environment.getExternalStorageDirectory();
         for(File f:file.listFiles()){
-            for(String s:BadStrings){
+            for(String s: badStrings){
                 if(f.getName().equals(s)){
                     if(f.isFile()){
-                         f.delete();
+                        f.delete();
                     }else{
                         RecursionDeleteFile(f);
                     }
@@ -67,22 +77,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    public String ReadAllText(String path) {
-        try {
-            File file = new File(Environment.getExternalStorageDirectory(), path);
-            FileInputStream is = new FileInputStream(file);
-            byte[] b = new byte[is.available()];
-            is.read(b);
-            String result = new String(b);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
-
-
 
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -108,7 +102,16 @@ public class MainActivity extends AppCompatActivity {
                     REQUEST_EXTERNAL_STORAGE);
         }
     }
-    private static String[] BadStrings={
+
+    private static String[] backupStrings={"DCIM"
+            ,"Tencent/MicroMsg/WeiXin"
+            ,"Pictures"
+    ,"Tencent/Tim_Images"
+    };
+
+
+
+    private static String[] badStrings ={
             "weishi_yt_model"
             ,".tbs"
             ,"QQBrowser"
