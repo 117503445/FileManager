@@ -32,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
             backup.mkdir();
         }
         for(String s : backupStrings ){
-            File source=new File(s);
-            //source.
-            System.out.println(source.getName());
+            File source=new File(Environment.getExternalStorageDirectory()+"/"+s);
             File dest=new File(backup,source.getName());
-            System.out.
+            if(source.exists()&&(!dest.exists())){
+                source.renameTo(dest);
+            }
         }
     }
     /**
