@@ -161,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
             ,"miad"
             ,"ramdump"
             ,".qmt"
-            ,"WechatChatroomHelper"
             ,"MiMarket"
             ,"com.tencent.tim"
             ,"tbs"
