@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Btntest_Click(View v) {
-        Toast.makeText(this, "Hello World", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Backup", Toast.LENGTH_SHORT).show();
         String time=new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
         File backup=new File(Environment.getExternalStorageDirectory(),"backup-"+time);
         if(!backup.exists()){
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void BtnClean_Click(View v) {
-        Toast.makeText(this, "BtnClean_Click", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Clean", Toast.LENGTH_SHORT).show();
         File file = Environment.getExternalStorageDirectory();
         for(File f:file.listFiles()){
             for(String s: badStrings){
