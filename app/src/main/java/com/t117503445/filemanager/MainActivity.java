@@ -2,8 +2,11 @@ package com.t117503445.filemanager;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.sql.Array;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import  android.util.Log;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -66,13 +69,13 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Clean", Toast.LENGTH_SHORT).show();
         File file = Environment.getExternalStorageDirectory();
         for(File f:file.listFiles()){
-            for(String s: badStrings){
-                if(f.getName().equals(s)){
-                    if(f.isFile()){
-                        f.delete();
-                    }else{
-                        RecursionDeleteFile(f);
-                    }
+             Log.d("",f.getName());
+
+            if(Arrays.asList(badStrings).contains(f)){
+                if(f.isFile()){
+                    f.delete();
+                }else{
+                    RecursionDeleteFile(f);
                 }
             }
         }
@@ -103,10 +106,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private static String[] backupStrings={"DCIM"
+    private static String[] backupStrings={
+            "DCIM"
             ,"Tencent/MicroMsg/WeiXin"
             ,"Pictures"
-    ,"Tencent/Tim_Images"
+            ,"Tencent/Tim_Images"
     };
 
 
@@ -169,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
             ,"com.tencent.gamehelper.pg"
             ,"WechatXposed"
             ,"browser"
-            ,"备份"
             ,".g_m_o_bs"
             ,".g_b_d_v"
             ,"MifareClassicTool"
@@ -214,6 +217,117 @@ public class MainActivity extends AppCompatActivity {
             ,"qt"
             ,"bill.txt"
             ,"tencentmapsdk"
+            ,"_7ServiceRecAckFromServer.txt"
+            ,".ColombiaMedia"
+            ,".zp"
+            ,"WisdomTreeforteacher"
+            ,".com.taobao.dp"
+            ,"com.cu.rsp"
+            ,"UCDownloads"
+            ,"5A968A4B377F25ED0A1FD3C67B0CEE31"
+            ,"CardEmulator"
+            ,".AOE"
+            ,"storage"
+            ,"wifi_config.log"
+            ,".534cc757"
+            ,"download_info"
+            ,"WisdomTree"
+            ,"unitType"
+            ,"..ccdid"
+            ,"libs"
+            ,".Android"
+            ,"log"
+            ,"geetest"
+            ,"chaoxing"
+            ,".UTSystemConfig"
+            ,"TMRI_12123"
+            ,"MQ"
+            ,"txrtmp"
+            ,"userexperience"
+            ,"GDTDOWNLOAD"
+            ,"mucang"
+            ,".x_o_b_d"
+            ,".tts"
+            ,".BD_SAPI_CACHE"
+            ,"deviceId.txt"
+            ,".mfw"
+            ,"SmsContactsBackup"
+            ,"..ccvid"
+            ,"tieba"
+            ,".iapppay"
+            ,"mipush"
+            ,"SpeakerData48.pcm"
+            ,"com.tencent.tmgp.sgame"
+            ,"_5ServiceRecAckFromSdk2.txt"
+            ,"moji_light"
+            ,"QQBrowser"
+            ,"._android.dat"
+            ,".mtacc"
+            ,"wpkFlowLog.txt"
+            ,"qmt"
+            ,"Vgtime"
+            ,"QQXposed"
+            ,".n_b"
+            ,"Panasonic"
+            ,"_1ServiceAckToServer.txt"
+            ,"FileDownloader"
+            ,"wwise_cfg.txt"
+            ,"sysdata"
+            ,"AllenVersionPath"
+            ,"wpk_uploading_fail"
+            ,"baidu"
+            ,".n_a"
+            ,".tbs"
+            ,"XiaoJi"
+            ,"weishi_yt_model"
+            ,".zzz"
+            ,"qpython"
+            ,"emlibs"
+            ,"Music"
+            ,"com.bilibili.comic"
+            ,"amap"
+            ,"JDIM"
+            ,"_6ServiceRecAckFromSdk3.txt"
+            ,".DataStorage"
+            ,"config_system_switchs.txt"
+            ,"alipay"
+            ,"Pindd"
+            ,".gs_file"
+            ,".wk"
+            ,"xzdz"
+            ,"._driver.dat"
+            ,".vivo"
+            ,".ngdslog"
+            ,"OpenMobileAPI"
+            ,"setup"
+            ,"sitemp"
+            ,".sys.log"
+            ,"Quark"
+            ,"msc"
+            ,"wismcp"
+            ,".n_c"
+            ,"iapppay"
+            ,".mg"
+            ,"iApp"
+            ,".gs_fs0"
+            ,"_0ServerSendToService.txt"
+            ,"OSSLog"
+            ,"wpk_uploading_ok"
+            ,"at"
+            ,"accmeta_vod"
+            ,"com.bilibili.qing"
+            ,"SpeakerData2.pcm"
+            ,"Mob"
+            ,"mfcache"
+            ,"mobilestat_info"
+            ,"muzhiwan"
+            ,"QTAudioEngine"
+            ,".g_b_d_v"
+            ,"system"
+            ,"Xiaomi"
+            ,".jds"
+            ,"FusionApp"
+
     };
 
 }
