@@ -16,7 +16,21 @@ import android.Manifest;
 import android.app.Activity;
 import android.support.v4.app.ActivityCompat;
 import android.content.pm.PackageManager;
-
+import java.lang.String;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
+import java.io.InputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 public class MainActivity extends AppCompatActivity {
 
 
@@ -27,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         verifyStoragePermissions(this);
     }
 
-    public void Btntest_Click(View v) {
+    public void BtnBackup_click(View v) {
         Toast.makeText(this, "Backup", Toast.LENGTH_SHORT).show();
         String time=new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
         File backup=new File(Environment.getExternalStorageDirectory(),"backup-"+time);
@@ -41,7 +55,37 @@ public class MainActivity extends AppCompatActivity {
                 source.renameTo(dest);
             }
         }
+        Toast.makeText(this, "zip ing,wait half minute~", Toast.LENGTH_SHORT).show();
+
+        ZipUtils.ZipFolder("/storage/emulated/0/backup-"+time,"/storage/emulated/0/backup-"+time+".zip");
+
+        Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+
+
     }
+    public void BtnClean_Click(View v) {
+        Toast.makeText(this, "Clean", Toast.LENGTH_SHORT).show();
+        File file = Environment.getExternalStorageDirectory();
+        for(File f:file.listFiles()){
+            if(Arrays.asList(badStrings).contains(f.getName())){
+                if(f.isFile()){
+                    f.delete();
+                }else{
+                    RecursionDeleteFile(f);
+                }
+            }
+        }
+
+
+
+    }
+
+    public void BtnTest_click(View v)  {
+        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
+        //File[] files=new File[]{new File("backup-20191013-100800")};
+        //ZipHelper.ZipMultiFile("/storage/emulated/0/backup-20191013-100800","/storage/emulated/0/backup-20191013-100800.zip");
+    }
+
     /**
      * 递归删除文件和文件夹
      * @param file
@@ -65,21 +109,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void BtnClean_Click(View v) {
-        Toast.makeText(this, "Clean", Toast.LENGTH_SHORT).show();
-        File file = Environment.getExternalStorageDirectory();
-        for(File f:file.listFiles()){
-             Log.d("",f.getName());
 
-            if(Arrays.asList(badStrings).contains(f.getName())){
-                if(f.isFile()){
-                    f.delete();
-                }else{
-                    RecursionDeleteFile(f);
-                }
-            }
-        }
-    }
 
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -107,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static String[] backupStrings={
-            "DCIM"
+            "DCIM/Camera"
             ,"Tencent/MicroMsg/WeiXin"
             ,"Pictures"
             ,"Tencent/Tim_Images"
@@ -219,9 +249,7 @@ public class MainActivity extends AppCompatActivity {
             ,"tencentmapsdk"
             ,"_7ServiceRecAckFromServer.txt"
             ,".ColombiaMedia"
-            ,".zp"
             ,"WisdomTreeforteacher"
-            ,".com.taobao.dp"
             ,"com.cu.rsp"
             ,"UCDownloads"
             ,"5A968A4B377F25ED0A1FD3C67B0CEE31"
@@ -234,50 +262,39 @@ public class MainActivity extends AppCompatActivity {
             ,"WisdomTree"
             ,"unitType"
             ,"..ccdid"
-            ,"libs"
             ,".Android"
             ,"log"
             ,"geetest"
             ,"chaoxing"
-            ,".UTSystemConfig"
             ,"TMRI_12123"
             ,"MQ"
             ,"txrtmp"
-            ,"userexperience"
             ,"GDTDOWNLOAD"
             ,"mucang"
             ,".x_o_b_d"
             ,".tts"
-            ,".BD_SAPI_CACHE"
             ,"deviceId.txt"
             ,".mfw"
             ,"SmsContactsBackup"
             ,"..ccvid"
             ,"tieba"
             ,".iapppay"
-            ,"mipush"
             ,"SpeakerData48.pcm"
             ,"com.tencent.tmgp.sgame"
             ,"_5ServiceRecAckFromSdk2.txt"
             ,"moji_light"
-            ,"QQBrowser"
             ,"._android.dat"
-            ,".mtacc"
             ,"wpkFlowLog.txt"
             ,"qmt"
             ,"Vgtime"
-            ,"QQXposed"
             ,".n_b"
             ,"Panasonic"
             ,"_1ServiceAckToServer.txt"
             ,"FileDownloader"
             ,"wwise_cfg.txt"
-            ,"sysdata"
             ,"AllenVersionPath"
             ,"wpk_uploading_fail"
-            ,"baidu"
             ,".n_a"
-            ,".tbs"
             ,"XiaoJi"
             ,"weishi_yt_model"
             ,".zzz"
@@ -285,26 +302,18 @@ public class MainActivity extends AppCompatActivity {
             ,"emlibs"
             ,"Music"
             ,"com.bilibili.comic"
-            ,"amap"
             ,"JDIM"
             ,"_6ServiceRecAckFromSdk3.txt"
-            ,".DataStorage"
             ,"config_system_switchs.txt"
-            ,"alipay"
             ,"Pindd"
             ,".gs_file"
             ,".wk"
             ,"xzdz"
             ,"._driver.dat"
-            ,".vivo"
             ,".ngdslog"
             ,"OpenMobileAPI"
             ,"setup"
             ,"sitemp"
-            ,".sys.log"
-            ,"Quark"
-            ,"msc"
-            ,"wismcp"
             ,".n_c"
             ,"iapppay"
             ,".mg"
@@ -317,130 +326,16 @@ public class MainActivity extends AppCompatActivity {
             ,"accmeta_vod"
             ,"com.bilibili.qing"
             ,"SpeakerData2.pcm"
-            ,"Mob"
             ,"mfcache"
             ,"mobilestat_info"
             ,"muzhiwan"
-            ,"QTAudioEngine"
-            ,".g_b_d_v"
-            ,"system"
             ,"Xiaomi"
-            ,".jds"
             ,"FusionApp"
-            ,"_7ServiceRecAckFromServer.txt"
             ,".cdeviceID"
-            ,".ColombiaMedia"
-            ,".zp"
-            ,"WisdomTreeforteacher"
-            ,".com.taobao.dp"
-            ,"com.cu.rsp"
-            ,"UCDownloads"
-            ,"5A968A4B377F25ED0A1FD3C67B0CEE31"
-            ,"CardEmulator"
-            ,".AOE"
-            ,"storage"
-            ,"wifi_config.log"
             ,".n_d"
-            ,".534cc757"
-            ,"download_info"
-            ,"WisdomTree"
-            ,"unitType"
-            ,"..ccdid"
-            ,"libs"
-            ,".Android"
-            ,"log"
-            ,"geetest"
-            ,"chaoxing"
-            ,".UTSystemConfig"
-            ,"TMRI_12123"
-            ,"MQ"
-            ,"txrtmp"
             ,"tga"
-            ,"userexperience"
-            ,"GDTDOWNLOAD"
-            ,"mucang"
-            ,".x_o_b_d"
-            ,".tts"
-            ,".BD_SAPI_CACHE"
-            ,"deviceId.txt"
-            ,".mfw"
-            ,"SmsContactsBackup"
-            ,"..ccvid"
-            ,"tieba"
-            ,".iapppay"
-            ,"mipush"
-            ,"SpeakerData48.pcm"
-            ,"com.tencent.tmgp.sgame"
-            ,"_5ServiceRecAckFromSdk2.txt"
-            ,"moji_light"
-            ,"QQBrowser"
-            ,"._android.dat"
-            ,".mtacc"
-            ,"wpkFlowLog.txt"
-            ,"qmt"
-            ,"Vgtime"
-            ,"QQXposed"
-            ,".n_b"
-            ,"Panasonic"
-            ,"_1ServiceAckToServer.txt"
             ,"_4ServiceRecAckFromSdk1.txt"
-            ,"FileDownloader"
-            ,"wwise_cfg.txt"
-            ,"sysdata"
-            ,"AllenVersionPath"
-            ,"wpk_uploading_fail"
-            ,"baidu"
-            ,".n_a"
-            ,".tbs"
-            ,"XiaoJi"
-            ,"weishi_yt_model"
-            ,".zzz"
-            ,"qpython"
-            ,"emlibs"
-            ,"com.bilibili.comic"
-            ,"amap"
-            ,"JDIM"
-            ,"_6ServiceRecAckFromSdk3.txt"
-            ,".DataStorage"
-            ,"config_system_switchs.txt"
-            ,"alipay"
-            ,"Pindd"
-            ,".gs_file"
-            ,".wk"
-            ,"xzdz"
-            ,"._driver.dat"
-            ,".vivo"
-            ,".ngdslog"
-            ,"OpenMobileAPI"
-            ,"setup"
-            ,"sitemp"
-            ,".sys.log"
-            ,"Quark"
-            ,"msc"
-            ,"wismcp"
-            ,".n_c"
-            ,"iapppay"
-            ,".mg"
-            ,"iApp"
-            ,".gs_fs0"
-            ,"_0ServerSendToService.txt"
-            ,"OSSLog"
-            ,"wpk_uploading_ok"
-            ,"at"
-            ,"accmeta_vod"
-            ,"com.bilibili.qing"
-            ,"SpeakerData2.pcm"
-            ,"Mob"
-            ,"mfcache"
-            ,"mobilestat_info"
-            ,"muzhiwan"
-            ,"QTAudioEngine"
-            ,".g_b_d_v"
-            ,"system"
-            ,"Xiaomi"
-            ,".jds"
-            ,"FusionApp"
 
     };
-
 }
+

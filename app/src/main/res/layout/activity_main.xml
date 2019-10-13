@@ -15,10 +15,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/Btntest"
+        android:id="@+id/BtnBackup"
         android:layout_width="140dp"
         android:layout_height="61dp"
-        android:onClick="Btntest_Click"
+        android:onClick="BtnBackup_click"
         android:text="Backup" />
     操作sd卡
 
@@ -29,8 +29,19 @@
         android:onClick="BtnClean_Click"
         android:text="Clean"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Btntest"
+        app:layout_constraintTop_toBottomOf="@+id/BtnBackup"
         app:layout_constraintVertical_bias="0.022"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/BtnTest"
+        android:layout_width="140dp"
+        android:layout_height="61dp"
+        android:onClick="BtnTest_click"
+        android:text="test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BtnBackup"
+        app:layout_constraintVertical_bias="0.159"
         tools:layout_editor_absoluteX="0dp" />
 
 </android.support.constraint.ConstraintLayout>
