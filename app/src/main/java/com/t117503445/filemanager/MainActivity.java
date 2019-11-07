@@ -1,5 +1,6 @@
 package com.t117503445.filemanager;
 
+import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Array;
@@ -55,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
                 source.renameTo(dest);
             }
         }
-        Toast.makeText(this, "zip ing,wait half minute~", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "zip ing,wait half minute~", Toast.LENGTH_SHORT).show();
 
-        ZipUtils.ZipFolder("/storage/emulated/0/backup-"+time,"/storage/emulated/0/backup-"+time+".zip");
+        //ZipUtils.ZipFolder("/storage/emulated/0/backup-"+time,"/storage/emulated/0/backup-"+time+".zip");
 
-        Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
 
 
     }
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Clean", Toast.LENGTH_SHORT).show();
         File file = Environment.getExternalStorageDirectory();
         for(File f:file.listFiles()){
+
+            Log.d("",f.getName());
+
             if(Arrays.asList(badStrings).contains(f.getName())){
                 if(f.isFile()){
                     f.delete();
@@ -141,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
             ,"Tencent/MicroMsg/WeiXin"
             ,"Pictures"
             ,"Tencent/Tim_Images"
+            ,"Tencent/QQ_Images"
     };
 
 
@@ -335,7 +340,45 @@ public class MainActivity extends AppCompatActivity {
             ,".n_d"
             ,"tga"
             ,"_4ServiceRecAckFromSdk1.txt"
-
+            ,".ibkcache"
+            ,"BaiduYuedu"
+            ,"JRTyrell"
+            ,"com.alibaba.wireless"
+            ,"aliyun_log"
+            ,"PMSLLM"
+            ,"MiniShare"
+            ,"com.cainiao.wireless"
+            ,"AnyDesk"
+            ,"cmcc_download"
+            ,".mn_-1703343384"
+            ,"jtyh"
+            ,"media"
+            ,"baiduTTS"
+            ,"zapya"
+            ,"kidsvideo"
+            ,"mipush"
+            ,"QQBrowser"
+            ,"fantasy"
+            ,"PayGateWayLibrary"
+            ,"xianyu"
+            ,"Shanbay"
+            ,"tad"
+            ,".arrow_flavor"
+            ,"com.bankcomm.Bankcomm"
+            ,"TuSDK"
+            ,"didi"
+            ,".tbs"
+            ,"SonicResource"
+            ,"MXShare"
+            ,"auf"
+            ,".turingdebug"
+            ,"BaiduNote"
+            ,"HelloImageLoader"
+            ,"statistic"
+            ,"sensetime"
+            ,"rytong"
+            ,"xbrowser"
+            ,".turing.dat"
     };
 }
 
