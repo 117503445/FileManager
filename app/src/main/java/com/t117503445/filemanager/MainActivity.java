@@ -68,9 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Clean", Toast.LENGTH_SHORT).show();
         File file = Environment.getExternalStorageDirectory();
         for(File f:file.listFiles()){
-
             Log.d("",f.getName());
-
             if(Arrays.asList(badStrings).contains(f.getName())){
                 if(f.isFile()){
                     f.delete();
@@ -79,13 +77,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
-
-
     }
 
     public void BtnTest_click(View v)  {
         Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
+        File file = Environment.getExternalStorageDirectory();
+        for(File f:file.listFiles()){
+            if(!Arrays.asList(badStrings).contains(f.getName())){
+                Log.i("log123",f.getName());
+            }
+        }
         //File[] files=new File[]{new File("backup-20191013-100800")};
         //ZipHelper.ZipMultiFile("/storage/emulated/0/backup-20191013-100800","/storage/emulated/0/backup-20191013-100800.zip");
     }
@@ -379,6 +380,39 @@ public class MainActivity extends AppCompatActivity {
             ,"rytong"
             ,"xbrowser"
             ,".turing.dat"
+            ,".6226f7cbe59e99a90b5cef6f94f966fd"
+            ,".7934039a"
+            ,".gs_fs3"
+            ,".gs_fs6"
+            ,".jdd"
+            ,".jpush"
+            ,".mn_-1130929326"
+            ,".o_a"
+            ,".vdevdir"
+            ,"Movies"
+            ,"Qmap"
+            ,"Record"
+            ,"Telegram"
+            ,"WechatChatroomHelper"
+            ,"Youdao"
+            ,"bingFM"
+            ,"bingdict"
+            ,"bytedance"
+            ,"cache"
+            ,"com.baidu.netdisk"
+            ,"com.tencent.edu_KcSdk"
+            ,"com.youdao.course"
+            ,"jshop_data"
+            ,"monitor"
+            ,"netease_pushservice"
+            ,"qqstory"
+            ,"qsvf"
+            ,"ramfs_ext"
+            ,"saottsdk"
+            ,"sina"
+            ,"tecent"
+            ,"wellsign"
+            ,"zhihu"
     };
 }
 
